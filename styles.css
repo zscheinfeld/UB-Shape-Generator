@@ -568,10 +568,72 @@ input:checked + .slider-switch:before {
   border-radius: 8px;
   border: solid #005BBB 2px;
   width: fit-content;
+  display: flex;
+  gap:8px;
 }
+
+
 
 .shape-shuffle:hover{
   background-color: black;
   border: white solid 2px;
   cursor: pointer;
+}
+
+.aspect-ratios{
+  position: absolute;
+  bottom: -28px;
+  right: 0px;
+  display: flex;
+  gap: 4px;
+}
+
+.ratio{
+  cursor: pointer;
+  background-color: #666;
+  height: 24px;
+  width: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-family: "sofia-pro", sans-serif;
+  font-weight: 400;
+  line-height: 100%;
+  border-radius: 4px;
+}
+
+
+/* Add these styles to your existing CSS for active aspect ratio buttons */
+
+.ratio.active {
+  background-color: #005BBB !important;
+  color: white;
+}
+
+.ratio.active:hover {
+  background-color: #004499 !important;
+}
+
+/* Optional: Add transition for smooth color changes */
+.ratio {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.ratio:hover {
+  background-color: #666;
+}
+
+#gui {
+  display: none !important;
+}
+
+.shuffle-icon{
+  height: 24px;
+  width: 24px;
+}
+
+.shuffle-icon img{
+  height: 100%;
+  width: 100%;
 }

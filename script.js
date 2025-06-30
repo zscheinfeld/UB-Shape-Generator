@@ -188,6 +188,120 @@ function sliderToCameraValue(sliderValue) {
   return -(500 - percentage * 400);
 }
 
+// ASPECT RATIO FUNCTIONS - MOVED OUTSIDE setupGUI()
+function smoothAspectRatioChange(aspectRatio) {
+  updateCanvasDimensions(aspectRatio);
+  canvasIsTransitioning = true;
+  
+  // Update aspect info display
+  const aspectInfo = document.getElementById('aspectInfo');
+  if (aspectInfo) {
+    aspectInfo.style.opacity = '0';
+    
+    setTimeout(() => {
+      aspectInfo.textContent = `${aspectRatio} - ${aspectRatios[aspectRatio].label}`;
+      aspectInfo.style.opacity = '1';
+    }, 150);
+  }
+}
+
+function smoothSizeChange(canvasSize, aspectRatio) {
+  // This function is now just for triggering updates since we auto-size
+  updateCanvasDimensions(aspectRatio);
+  canvasIsTransitioning = true;
+}
+
+function updateCanvasDimensions(aspectRatio) {
+  const ratio = aspectRatios[aspectRatio];
+  const posterElement = document.querySelector('.poster');
+  const posterWidth = posterElement.clientWidth;
+  const posterHeight = posterElement.clientHeight;
+  
+  // Calculate dimensions to fit poster while maintaining aspect ratio
+  const canvasAspectRatio = ratio.width / ratio.height;
+  const posterAspectRatio = posterWidth / posterHeight;
+  
+  if (canvasAspectRatio > posterAspectRatio) {
+    // Canvas is wider than poster - fit to poster width
+    targetWidth = posterWidth;
+    targetHeight = posterWidth / canvasAspectRatio;
+  } else {
+    // Canvas is taller than poster - fit to poster height
+    targetHeight = posterHeight;
+    targetWidth = posterHeight * canvasAspectRatio;
+  }
+  
+  console.log(`Canvas dimensions: ${targetWidth} x ${targetHeight} for aspect ratio ${aspectRatio}`);
+}
+
+// Add this function to handle HTML aspect ratio buttons - MOVED OUTSIDE setupGUI()
+function setupAspectRatioButtons() {
+  const aspectRatioButtons = document.querySelectorAll('.ratio');
+  let currentActiveButton = null;
+  
+  // Set initial active state (default to 1:1)
+  aspectRatioButtons.forEach((button, index) => {
+    const buttonText = button.textContent.trim();
+    
+    // Set first button (1:1) as active by default
+    if (index === 0) {
+      button.classList.add('active');
+      currentActiveButton = button;
+    }
+    
+    // Add click handler
+    button.addEventListener('click', function() {
+      // Remove active class from previously active button
+      if (currentActiveButton) {
+        currentActiveButton.classList.remove('active');
+      }
+      
+      // Add active class to clicked button
+      this.classList.add('active');
+      currentActiveButton = this;
+      
+      // Get aspect ratio from button text or data attribute
+      let aspectRatio;
+      switch(buttonText) {
+        case '1:1':
+          aspectRatio = '1:1';
+          break;
+        case '16:9':
+          aspectRatio = '16:9';
+          break;
+        case '4:5':
+          aspectRatio = '4:5';
+          break;
+        case '9:16':
+          aspectRatio = '9:16';
+          break;
+        default:
+          aspectRatio = '1:1';
+      }
+      
+      console.log(`Aspect ratio changed to: ${aspectRatio}`);
+      
+      // Trigger the aspect ratio change
+      smoothAspectRatioChange(aspectRatio);
+    });
+    
+    // Add hover effects
+    button.addEventListener('mouseenter', function() {
+      if (!this.classList.contains('active')) {
+        this.style.backgroundColor = '#666;';
+      }
+    });
+    
+    button.addEventListener('mouseleave', function() {
+      if (!this.classList.contains('active')) {
+        this.style.backgroundColor = '#666;';
+      }
+    });
+  });
+  
+  console.log('Aspect ratio buttons set up successfully');
+}
+
 $( document ).ready(function() {
   
   console.log( "ready!" );
@@ -285,6 +399,8 @@ loader.load('UB3.obj', (loadedData) => {
 (error) => {
   console.error('Error loading OBJ file:', error);
 });
+
+
 
 function setupGUI() {
 
@@ -851,22 +967,8 @@ function resetTextPositioning() {
   }
 }
 
-
-
-  // Aspect Ratio Controls
-  const aspectRatioControls = {
-    aspectRatio: '1:1'
-  };
-
-  const aspectFolder = gui.addFolder('Canvas Settings');
-  
-  aspectFolder.add(aspectRatioControls, 'aspectRatio', Object.keys(aspectRatios))
-    .name('Aspect Ratio')
-    .onChange(function(value) {
-      smoothAspectRatioChange(value);
-    });
-
-  aspectFolder.open();
+   // Add HTML aspect ratio button functionality
+   setupAspectRatioButtons();
 
   // GUI
   const myObject = {
@@ -1056,8 +1158,6 @@ function resetTextPositioning() {
   gui.add( myObject, 'Download' ); // Button
 
   // View presets functionality
-
-
   // Create view buttons
   const viewFolder = gui.addFolder('Views');
   viewPresets.forEach((preset, index) => {
@@ -1077,60 +1177,14 @@ function resetTextPositioning() {
     viewFolder.add(viewObject, preset.name);
   });
 
-  // Aspect ratio change functions
-  function smoothAspectRatioChange(aspectRatio) {
-    updateCanvasDimensions(aspectRatio);
-    canvasIsTransitioning = true;
-    
-    // Update aspect info display
-    const aspectInfo = document.getElementById('aspectInfo');
-    if (aspectInfo) {
-      aspectInfo.style.opacity = '0';
-      
-      setTimeout(() => {
-        aspectInfo.textContent = `${aspectRatio} - ${aspectRatios[aspectRatio].label}`;
-        aspectInfo.style.opacity = '1';
-      }, 150);
-    }
-  }
-
-  function smoothSizeChange(canvasSize, aspectRatio) {
-    // This function is now just for triggering updates since we auto-size
-    updateCanvasDimensions(aspectRatio);
-    canvasIsTransitioning = true;
-  }
-
-  function updateCanvasDimensions(aspectRatio) {
-    const ratio = aspectRatios[aspectRatio];
-    const posterWidth = posterElement.clientWidth;
-    const posterHeight = posterElement.clientHeight;
-    
-    // Calculate dimensions to fit poster while maintaining aspect ratio
-    const canvasAspectRatio = ratio.width / ratio.height;
-    const posterAspectRatio = posterWidth / posterHeight;
-    
-    if (canvasAspectRatio > posterAspectRatio) {
-      // Canvas is wider than poster - fit to poster width
-      targetWidth = posterWidth;
-      targetHeight = posterWidth / canvasAspectRatio;
-    } else {
-      // Canvas is taller than poster - fit to poster height
-      targetHeight = posterHeight;
-      targetWidth = posterHeight * canvasAspectRatio;
-    }
-    
-    console.log(`Canvas dimensions: ${targetWidth} x ${targetHeight} for aspect ratio ${aspectRatio}`);
-  }
-
   // Make updateTextOverlay available globally for canvas resize updates
   window.updateTextOverlay = updateTextOverlay;
 
-    
   // ADD THIS LINE TO ACTUALLY SET UP THE SHUFFLE BUTTON:
   setupShuffleButton();
 
-    // ADD THIS LINE TO SET UP THE SHAPE SHUFFLE BUTTON:
-    setupShapeShuffleButton();
+  // ADD THIS LINE TO SET UP THE SHAPE SHUFFLE BUTTON:
+  setupShapeShuffleButton();
 }
 
 // Init the controller
@@ -1408,8 +1462,6 @@ function shuffleShape() {
   
   // Transition to the random view
   transitionToView(randomPreset);
-
-
 }
 
 // Function to set up shape shuffle button
@@ -1487,8 +1539,6 @@ function shuffleShapeWeighted() {
 }
 
 // Function to prevent same preset from being selected twice in a row
-let lastSelectedPreset = null;
-
 function getRandomViewPresetNoDuplicates() {
   let availablePresets = viewPresets;
   
@@ -1517,7 +1567,6 @@ function shuffleShapeNoDuplicates() {
   console.log(`Randomly selected (no duplicates): ${randomPreset.name}`);
   
   transitionToView(randomPreset);
-  
 }
 
 window.addEventListener("resize", onWindowResize, false);
