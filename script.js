@@ -421,7 +421,7 @@ function setupDownloadButton() {
     
     // Add hover effects
     downloadButton.addEventListener('mouseenter', function() {
-      this.style.transform = 'scale(0.98)';
+  
       this.style.opacity = '0.8';
     });
     
@@ -432,11 +432,11 @@ function setupDownloadButton() {
     
     // Add active state
     downloadButton.addEventListener('mousedown', function() {
-      this.style.transform = 'scale(0.95)';
+    
     });
     
     downloadButton.addEventListener('mouseup', function() {
-      this.style.transform = 'scale(0.98)';
+   
     });
     
     console.log('Download button set up successfully');
