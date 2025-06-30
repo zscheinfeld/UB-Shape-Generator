@@ -53,6 +53,7 @@ svg {
 
 .text-headline{
   font-family: "sofia-pro", sans-serif;
+  font-feature-settings: 'salt' on;
   font-weight: 600;
   font-style: normal;
   line-height: 100%;
@@ -60,6 +61,7 @@ svg {
 
 .slider-outer-container{
   font-family: "sofia-pro", sans-serif;
+  font-feature-settings: 'salt' on;
   font-weight: 400;
   font-style: normal;
   line-height: 100%;
@@ -148,7 +150,7 @@ svg {
 
 .colors-container{
   font-family: "sofia-pro", sans-serif;
-  font-weight: 400;
+  font-feature-settings: 'salt' on;
   font-style: normal;
   line-height: 100%;
   color: white;
@@ -273,6 +275,7 @@ input:checked + .slider-switch:before {
 
 .text-label{
   font-family: "sofia-pro", sans-serif;
+  font-feature-settings: 'salt' on;
   font-weight: 400;
   font-style: normal;
   line-height: 100%;
@@ -347,6 +350,7 @@ input:checked + .slider-switch:before {
 
 .text-input-label {
   font-family: "sofia-pro", sans-serif;
+  font-feature-settings: 'salt' on;
   font-weight: 400;
   font-style: normal;
   color: white;
@@ -363,6 +367,7 @@ input:checked + .slider-switch:before {
   background-color: #E4E4E4;
   color: rgb(0, 0, 0);
   font-family: "sofia-pro", sans-serif;
+  font-feature-settings: 'salt' on;
   font-size: 14px;
   outline: none;
   transition: border-color 0.2s ease;
@@ -382,6 +387,7 @@ input:checked + .slider-switch:before {
 /* Text overlay container */
 .text-overlay-container {
   font-family: "sofia-pro", Arial, sans-serif;
+  font-feature-settings: 'salt' on;
   color: #000000;
   line-height: 1.2;
   word-wrap: break-word;
@@ -494,7 +500,8 @@ input:checked + .slider-switch:before {
 .text-input[rows] {
   resize: vertical; /* Allow vertical resizing only */
   min-height: 40px;
-  font-family: "sofia-pro", sans-serif; /* Ensure consistent font */
+  font-family: "sofia-pro", sans-serif; 
+  font-feature-settings: 'salt' on;/* Ensure consistent font */
   line-height: 1.4;
 }
 
@@ -518,6 +525,7 @@ input:checked + .slider-switch:before {
   color: white;
   font-size: 16px;
   font-family: "sofia-pro", sans-serif;
+  font-feature-settings: 'salt' on;
   width: 24px;
   height: 24px;
   background-color: #666;
@@ -545,6 +553,7 @@ input:checked + .slider-switch:before {
   color: white;
   font-size: 32px;
   font-family: "sofia-pro", sans-serif;
+  font-feature-settings: 'salt' on;
   font-weight: 400;
   font-style: normal;
   line-height: 100%;
@@ -553,12 +562,15 @@ input:checked + .slider-switch:before {
   border-bottom: solid 1px white;
   margin-bottom: 24px;
   max-width: 100%;
+  font-variant-alternates: stylistic(user-defined-ident);
+  font-feature-settings: 'salt' on;
 
 }
 
 .shape-shuffle{
   color: white;
   font-family: "sofia-pro", sans-serif;
+  font-feature-settings: 'salt' on;
   font-weight: 400;
   background-color: #005BBB;
   padding-bottom: 8px;
@@ -575,6 +587,7 @@ input:checked + .slider-switch:before {
 .download-button{
   color: white;
   font-family: "sofia-pro", sans-serif;
+  font-feature-settings: 'salt' on;
   font-weight: 400;
   background-color: #005BBB;
   padding-bottom: 8px;
@@ -623,6 +636,7 @@ input:checked + .slider-switch:before {
   align-items: center;
   color: white;
   font-family: "sofia-pro", sans-serif;
+  font-feature-settings: 'salt' on;
   font-weight: 400;
   line-height: 100%;
   border-radius: 4px;

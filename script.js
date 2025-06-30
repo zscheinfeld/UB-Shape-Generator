@@ -40,10 +40,10 @@ const viewPresets = [
   },
   {
     name: 'Side View',
-    rotation: { x: 0, y: Math.PI / 2, z: Math.PI / 4 },
-    extrude: 25,
+    rotation: { x: -0.0439822971502571, y: .65973, z: 0 },
+    extrude: 40,
     camera: -450,
-    scale: 15 // Medium-low scale
+    scale: 57 // Medium-low scale
   },
   {
     name: 'Extruded',
@@ -54,10 +54,10 @@ const viewPresets = [
   },
   {
     name: 'Top View',
-    rotation: { x: Math.PI / 2, y: 0, z: 0 },
-    extrude: 30,
+    rotation: { x: 0.973893722612836, y: 0.351858377202057, z: 0 },
+    extrude: 21,
     camera: -400,
-    scale: 20 // Medium scale for top view
+    scale: 71 // Medium scale for top view
   }
 ];
 
