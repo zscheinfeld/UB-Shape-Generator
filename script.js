@@ -40,7 +40,7 @@ const viewPresets = [
   },
   {
     name: 'Side View',
-    rotation: { x: 0, y: Math.PI / 2, z: 0 },
+    rotation: { x: 0, y: Math.PI / 2, z: Math.PI / 4 },
     extrude: 25,
     camera: -450,
     scale: 15 // Medium-low scale
@@ -351,7 +351,7 @@ renderer.domElement.setAttribute('xmlns' ,'http://www.w3.org/2000/svg'); // Add 
 /* Setup a new loader */
 const loader = new OBJLoader();
 // Load the OBJ file
-loader.load('UB3.obj', (loadedData) => {
+loader.load('UB9.obj', (loadedData) => {
   data = loadedData;
   
   // Make data globally accessible
@@ -403,6 +403,144 @@ loader.load('UB3.obj', (loadedData) => {
 
 
 function setupGUI() {
+
+  // HTML Download Button Integration
+function setupDownloadButton() {
+  const downloadButton = document.querySelector('.download-button');
+  
+  if (downloadButton) {
+    // Add styling for interaction
+    downloadButton.style.transition = 'transform 0.2s ease, opacity 0.2s ease';
+    downloadButton.style.cursor = 'pointer';
+    downloadButton.style.userSelect = 'none';
+    
+    // Add click event listener
+    downloadButton.addEventListener('click', function() {
+      downloadSVG();
+    });
+    
+    // Add hover effects
+    downloadButton.addEventListener('mouseenter', function() {
+      this.style.transform = 'scale(0.98)';
+      this.style.opacity = '0.8';
+    });
+    
+    downloadButton.addEventListener('mouseleave', function() {
+      this.style.transform = 'scale(1)';
+      this.style.opacity = '1';
+    });
+    
+    // Add active state
+    downloadButton.addEventListener('mousedown', function() {
+      this.style.transform = 'scale(0.95)';
+    });
+    
+    downloadButton.addEventListener('mouseup', function() {
+      this.style.transform = 'scale(0.98)';
+    });
+    
+    console.log('Download button set up successfully');
+  } else {
+    console.error('Download button not found');
+  }
+}
+
+// Enhanced download function that includes text overlay
+function downloadSVG() {
+  console.log('Download initiated');
+  
+  try {
+    // Get the current poster HTML including SVG and text overlay
+    const posterElement = document.querySelector('.poster');
+    if (!posterElement) {
+      console.error('Poster element not found');
+      return;
+    }
+    
+    // Clone the poster to avoid modifying the original
+    const posterClone = posterElement.cloneNode(true);
+    
+    // Get SVG element
+    const svgElement = posterClone.querySelector('svg');
+    if (!svgElement) {
+      console.error('SVG element not found');
+      return;
+    }
+    
+    // Get text overlay if it exists
+    const textOverlay = posterClone.querySelector('#text-overlay');
+    
+    if (textOverlay && textControls.showText) {
+      // Convert text overlay to SVG text elements
+      const textElements = textOverlay.querySelectorAll('.text-big, .text-medium, .text-small');
+      const svgRect = svgElement.getBoundingClientRect();
+      const posterRect = posterElement.getBoundingClientRect();
+      
+      textElements.forEach((textElement, index) => {
+        const textContent = textElement.innerHTML.replace(/<br>/g, ' '); // Replace <br> with spaces
+        const computedStyle = window.getComputedStyle(textElement);
+        
+        // Get text position relative to SVG
+        const textRect = textElement.getBoundingClientRect();
+        const relativeX = textRect.left - svgRect.left;
+        const relativeY = textRect.top - svgRect.top + parseFloat(computedStyle.fontSize);
+        
+        // Create SVG text element
+        const svgText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        svgText.setAttribute('x', relativeX);
+        svgText.setAttribute('y', relativeY);
+        svgText.setAttribute('fill', computedStyle.color || textControls.textColor);
+        svgText.setAttribute('font-family', computedStyle.fontFamily || 'Arial, sans-serif');
+        svgText.setAttribute('font-size', computedStyle.fontSize || '16px');
+        svgText.setAttribute('font-weight', computedStyle.fontWeight || 'normal');
+        svgText.textContent = textContent;
+        
+        // Add text to SVG
+        svgElement.appendChild(svgText);
+      });
+    }
+    
+    // Get the SVG as string
+    const svgString = new XMLSerializer().serializeToString(svgElement);
+    
+    // Create blob and download
+    const blob = new Blob([svgString], { type: "image/svg+xml" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `shape-system-${Date.now()}.svg`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    console.log('Download completed successfully');
+    
+  } catch (error) {
+    console.error('Download failed:', error);
+  }
+}
+
+// Alternative simpler download function (fallback)
+function downloadSVGSimple() {
+  const svgElement = renderer.domElement;
+  if (!svgElement) {
+    console.error('SVG element not found');
+    return;
+  }
+  
+  const svgString = new XMLSerializer().serializeToString(svgElement);
+  const blob = new Blob([svgString], { type: "image/svg+xml" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `shape-system-${Date.now()}.svg`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// Add this line to your setupGUI() function at the end:
+setupDownloadButton();
 
  // Updated setupShuffleButton function with initial hidden state
 function setupShuffleButton() {
