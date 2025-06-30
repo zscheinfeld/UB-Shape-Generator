@@ -1,0 +1,577 @@
+
+
+body {
+  margin: 0;
+  overflow: hidden;
+}
+svg {
+  position: absolute;
+}
+
+.outer-container{
+  height: 100vh;
+  width: 100vw;
+  background-color: black;
+  display: flex;
+}
+
+.render{
+  width: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e4e4e4;
+}
+
+.menu{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: 32px;
+  padding-right: 32px;
+  padding-top: 32px;
+  padding-bottom: 32px;
+  width: 25%;
+  background-color: rgb(0, 0, 0);
+}
+
+.poster{
+  background-color: rgb(159, 159, 159);
+  width: 80%;
+  height: 80%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#gui { 
+  position: absolute; 
+  top: 75px; 
+  right: 130px 
+}
+
+.text-headline{
+  font-family: "sofia-pro", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  line-height: 100%;
+}
+
+.slider-outer-container{
+  font-family: "sofia-pro", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 100%;
+  color: white;
+}
+
+.slider-inner-container{
+  display: flex;
+  align-items: flex-start;
+}
+
+.slidecontainer {
+  width: 250px; /* Full-width */
+  margin-right: 12px;
+  position: relative;
+}
+
+/* The slider itself */
+.slider {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 250px; /* Full-width */
+  height: 14px; /* Specified height */
+  background: #FFFFFF; /* Grey background */
+  outline: none; /* Remove outline */
+  position: relative;
+  border-radius: 8px;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* WebKit browsers (Chrome, Safari, Edge) - Fill effect */
+.slider::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 14px;
+  background: linear-gradient(to right, #005BBB 0%, #005BBB var(--fill-percent, 50%), #FFFFFF var(--fill-percent, 50%), #FFFFFF 100%);
+  border-radius: 2px;
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 14px; /* Slider handle height */
+  background: #005BBB; /* Blue background */
+  border-right: solid black 2px;
+  cursor: pointer; /* Cursor on hover */
+  position: relative;
+  border-radius: 0px;
+}
+
+/* Firefox - Fill effect */
+.slider::-moz-range-track {
+  width: 100%;
+  height: 14px;
+  background: linear-gradient(to right, #005BBB 0%, #005BBB var(--fill-percent, 50%), #FFFFFF var(--fill-percent, 50%), #FFFFFF 100%);
+  border-radius: 0px;
+  border: none;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 14px; /* Slider handle height */
+  background: #005BBB; /* Blue background */
+  cursor: pointer; /* Cursor on hover */
+  border: none;
+  border-radius: 0px;
+  border-right: solid black 2px;
+}
+
+.slider-label{
+  padding-bottom: 2px;
+  padding-left: 2px;
+}
+
+.sliders{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 48px;
+}
+
+.colors-container{
+  font-family: "sofia-pro", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 100%;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 2px;
+}
+
+.color-item{
+  height: 36px;
+  width: 36px;
+  background-color: white;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.color-item:hover{
+  opacity: 80%;
+  cursor: pointer;
+}
+
+.color-items{
+  display: flex;
+  gap: 6px;
+}
+
+.inner-color-item{
+  height: 60%;
+  width: 60%;
+  background-color: black;
+  border-radius: 4px;
+}
+
+.blue{
+  background-color: #005BBB;
+}
+
+.yellow{
+  background-color: #EBEC00;
+}
+
+.white{
+  background-color: white;
+}
+
+.black{
+  background-color: black;
+}
+
+.dark-blue{
+  background-color: #002F56;
+}
+
+/* Active color item - uses inset box-shadow for inside border */
+.color-item.active {
+  box-shadow: inset 0 0 0 2px white;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider-switch {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #666666;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider-switch:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider-switch {
+  background-color: #005BBB;
+}
+
+input:focus + .slider-switch {
+  box-shadow: 0 0 1px #005BBB;
+}
+
+input:checked + .slider-switch:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider-switch.round {
+  border-radius: 34px;
+}
+
+.slider-switch.round:before {
+  border-radius: 50%;
+}
+
+.text-label{
+  font-family: "sofia-pro", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 100%;
+  color: white;
+  padding-left: 8px;
+}
+
+.switch-inner-container{
+  display: flex;
+  align-items: center;
+}
+
+.switch-outer-container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Enhanced shuffle button styling */
+.layout-shuffle {
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  display: none; /* Initially hidden */
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.layout-shuffle:hover {
+  opacity: 0.7;
+}
+
+.layout-shuffle img{
+  color: white;
+}
+
+
+
+.text{
+  padding-top: 48px;
+}
+
+.form-fiels{
+
+}
+
+/* Text Input Fields CSS - Add this to your styles.css */
+
+.text-inputs {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(-10px);
+
+}
+
+.text-inputs.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.text-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.text-input-label {
+  font-family: "sofia-pro", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: white;
+  font-size: 16px;
+  padding-left: 2px;
+  padding-bottom: 2px;
+}
+
+.text-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #666;
+  border-radius: 4px;
+  background-color: #E4E4E4;
+  color: rgb(0, 0, 0);
+  font-family: "sofia-pro", sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.text-input:focus {
+  border-color: #005BBB;
+}
+
+.text-input::placeholder {
+  color: #999;
+}
+
+/* Text Overlay CSS - Add this to your styles.css */
+
+/* Text overlay container */
+.text-overlay-container {
+  font-family: "sofia-pro", Arial, sans-serif;
+  color: #000000;
+  line-height: 1.2;
+  word-wrap: break-word;
+  opacity: 1;
+  transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+  width: 100%; /* Control width here instead of JavaScript */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Container animation for when text appears */
+.text-overlay-container.text-container-animate {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: containerSlideIn 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+/* Text positioning classes */
+.text-overlay-container.top-left { text-align: left; }
+.text-overlay-container.top-center { text-align: center; transform: translateX(-50%); }
+.text-overlay-container.top-right { text-align: right; }
+.text-overlay-container.center-left { text-align: left; transform: translateY(-50%); }
+.text-overlay-container.center { text-align: center; transform: translate(-50%, -50%); }
+.text-overlay-container.center-right { text-align: right; transform: translateY(-50%); }
+.text-overlay-container.bottom-left { text-align: left; }
+.text-overlay-container.bottom-center { text-align: center; transform: translateX(-50%); }
+.text-overlay-container.bottom-right { text-align: right; }
+
+/* Individual text elements */
+.text-big {
+  font-size: 84px;
+  line-height: 80%;
+  font-weight: bold;
+  margin-bottom: 8px;
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+  max-width: 100%;
+}
+
+.text-medium {
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+  line-height: 120%;
+}
+
+.text-small {
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 8px;
+  line-height: 1.4;
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Animation classes for individual text elements */
+.text-animate {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: textSlideIn 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+/* Keyframe animations */
+@keyframes containerSlideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes textSlideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* You can customize these for different themes: */
+
+/* Dark theme text (for light backgrounds) */
+.text-overlay-container.dark-theme {
+  color: #000000;
+}
+
+/* Light theme text (for dark backgrounds) */
+.text-overlay-container.light-theme {
+  color: #ffffff;
+}
+
+/* Colored text variants */
+.text-overlay-container.blue-theme {
+  color: #005BBB;
+}
+
+.text-overlay-container.yellow-theme {
+  color: #EBEC00;
+}
+
+/* Add this to your existing CSS for textarea support */
+
+.text-input[rows] {
+  resize: vertical; /* Allow vertical resizing only */
+  min-height: 40px;
+  font-family: "sofia-pro", sans-serif; /* Ensure consistent font */
+  line-height: 1.4;
+}
+
+.text-input[rows]:focus {
+  border-color: #005BBB;
+  outline: none;
+}
+
+.text-label-outer-container{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.size-container{
+  display: flex;
+  gap: 4px;
+}
+
+.text-size{
+  color: white;
+  font-size: 16px;
+  font-family: "sofia-pro", sans-serif;
+  width: 24px;
+  height: 24px;
+  background-color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.text-size:hover{
+  background-color: #66666694;
+}
+
+.text-size.active {
+  background-color: #005BBB; /* or whatever your primary color is */
+  color: white;
+}
+
+.text-size.active:hover {
+  background-color: #004499; /* slightly darker for hover */
+}
+
+.title{
+  color: white;
+  font-size: 32px;
+  font-family: "sofia-pro", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 100%;
+  padding-bottom: 24px;
+  padding-right: 32px;
+  border-bottom: solid 1px white;
+  margin-bottom: 24px;
+  max-width: 100%;
+
+}
+
+.shape-shuffle{
+  color: white;
+  font-family: "sofia-pro", sans-serif;
+  font-weight: 400;
+  background-color: #005BBB;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 8px;
+  border: solid #005BBB 2px;
+  width: fit-content;
+}
+
+.shape-shuffle:hover{
+  background-color: black;
+  border: white solid 2px;
+  cursor: pointer;
+}

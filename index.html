@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://use.typekit.net/bbu8anc.css">
+        <link rel="stylesheet" href="styles.css">
+        <!-- <script type="module">
+            import GUI from 'https://cdn.jsdelivr.net/npm/lil-gui@0.20/+esm';
+        </script> -->
+        <script src="https://cdn.jsdelivr.net/npm/lil-gui@0.20"></script>
+        <script>
+        var GUI = lil.GUI;
+        </script>
+        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/p5@1.9.4/lib/p5.js"></script>
+        <link rel="stylesheet" href="https://use.typekit.net/bbu8anc.css">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="outer-container">
+            <div class="menu">
+                <div class="top-controls">
+                    <div class="title">
+                        Shape System <br>Internal Tool
+                    </div>
+                    <div class="sliders">
+                        <div class="slider-outer-container">
+                            <div class="slider-label">
+                                Extrude
+                            </div>
+                            <div class="slider-inner-container">
+                            <div class="slidecontainer">
+                                <input type="range" min="1" max="100" value="1" class="slider" id="myRange">
+                            </div> 
+                            <div class="current-value">
+                                xx
+                            </div>
+
+                            </div>
+                            
+                        </div>
+                        <div class="slider-outer-container">
+                            <div class="slider-label">
+                                Scale
+                            </div>
+                            <div class="slider-inner-container">
+                            <div class="slidecontainer">
+                                <input type="range" min="1" max="100" value="1" class="slider" id="scaleRange">
+                            </div> 
+                            <div class="current-value">
+                                xx
+                            </div>
+
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="colors-container">
+                        Color
+                        <div class="color-items">
+                            <div class="color-item blue">
+                                <div class="inner-color-item white"></div>
+                            </div>
+                            <div class="color-item blue">
+                                <div class="inner-color-item dark-blue"></div>
+                            </div>
+                            <div class="color-item white">
+                                <div class="inner-color-item blue"></div>
+                            </div>
+                            <div class="color-item yellow">
+                                <div class="inner-color-item black"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text">
+                        <div class="switch-outer-container">
+                            <div class="switch-inner-container">
+                                <div class="switch-container">
+                                    <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider-switch round"></span>
+                                </label>
+                                </div>
+                                <div class = "text-label">
+                                    Text
+                                </div>
+                            </div>
+                            <div class="layout-shuffle">
+                                <img src="/shuffle.svg">
+
+                            </div>
+                        
+                        </div>
+                    </div>
+                </div>
+            <div class="shape-shuffle">Shuffle Shape</div>
+            </div>
+            <div class="render">
+                
+                <div class="poster">
+                    
+                </div>
+            </div>
+        </div>
+        
+        <script type="module" src="script.js" async defer></script>
+
+    </body>
+</html>
